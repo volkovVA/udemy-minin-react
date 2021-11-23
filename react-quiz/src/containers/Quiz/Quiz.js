@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import classes from './Quiz.module.css';
 
 import ActiveQuiz from "../../components/ActiveQuiz/ActiveQuiz";
+import FinishedQuiz from "../../components/FinishedQuiz/FinishedQuiz";
 
 export default class Quiz extends Component {
 
   state = {
+    isFinished: true,
     activeQuestion: 0,
     answerState: null,
     quiz: [
@@ -53,6 +55,9 @@ export default class Quiz extends Component {
 
       const timeout = window.setTimeout(() => {
         if (this.isQuizfinished()) {
+          this.setState({
+            isFinished: true
+          })
           console.log('Finished');
         } else {
           this.setState({
@@ -81,13 +86,17 @@ export default class Quiz extends Component {
       <div className={ classes.Quiz }>
         <div className={ classes.QuizWrapper }>
           <h1>Ответьте на все вопросы</h1>
-          <ActiveQuiz
-            answers={ this.state.quiz[this.state.activeQuestion].answers }
-            question={ this.state.quiz[this.state.activeQuestion].question }
-            onAnswerClick={ this.onAnswerClickHandler }
-            quizLength={ this.state.quiz.length }
-            answerNumber={ this.state.activeQuestion + 1}
-            state={ this.state.answerState } />
+          {
+            this.state.isFinished
+              ? <FinishedQuiz />
+              :           <ActiveQuiz
+              answers={ this.state.quiz[this.state.activeQuestion].answers }
+              question={ this.state.quiz[this.state.activeQuestion].question }
+              onAnswerClick={ this.onAnswerClickHandler }
+              quizLength={ this.state.quiz.length }
+              answerNumber={ this.state.activeQuestion + 1}
+              state={ this.state.answerState } />
+          }
         </div>
       </div>
     );
