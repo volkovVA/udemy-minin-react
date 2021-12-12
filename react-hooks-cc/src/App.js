@@ -1,12 +1,17 @@
-import React, { useState, useCallback } from 'react';
-import ItemsList from './examples/ItemsList';
+import React from 'react';
+import Main from './examples/Main';
+import Alert from './examples/alert/Alert';
+import { AlertProvider } from './examples/alert/AlertContext'
 
 function App() {
 
   return (
-    <div>
-
-    </div>
+    <AlertProvider>
+      <div className={'container'}>
+        <Alert />
+        <Main toggle={() => {}} />
+      </div>
+    </AlertProvider>
   );
 }
 
