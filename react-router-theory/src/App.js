@@ -6,6 +6,11 @@ import Cars from './Cars/Cars'
 import CarDetail from './CarDetail/CarDetail'
 
 class App extends Component {
+
+  state = {
+    isLoggedIn: false
+  }
+
   render() {
 
     return (
@@ -37,11 +42,17 @@ class App extends Component {
           </ul>
         </nav>
 
+        <hr />
+        <div style={{textAlign: 'center'}}>
+          <h3>Is logged in {this.state.isLoggedIn ? 'TRUE' : 'FALSE'} </h3>
+          <button onClick={() => this.setState({isLoggedIn: true})}>LogIn</button>
+        </div>
+
         <hr/>
 
         <Switch>
           <Route path="/" exact render={() => <h1>Home page!!!</h1>} />
-          <Route path="/about" component={About} />
+          { this.state.isLoggedIn ? <Route path="/about" component={About} /> : null}
           <Route path="/cars/:name" component={CarDetail} />
           <Route path="/cars" component={Cars} />
           <Redirect to={'/'} />
