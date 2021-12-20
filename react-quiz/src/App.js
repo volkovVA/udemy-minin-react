@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Layout from "./hoc/Layout/Layout";
-import {Route, Routes} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import Quiz from "./containers/Quiz/Quiz";
 import QuizCreator from "./containers/QuizCreator/QuizCreator";
@@ -11,12 +11,12 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        <Routes>
-          <Route path="/auth" element={<Auth/>} />
-          <Route path="/quiz/creator" element={<QuizCreator/>} />
-          <Route path="/quiz/:id" element={<Quiz/>} />
-          <Route path="/" element={<QuizList />} />
-        </Routes>
+        <Switch>
+          <Route path="/auth" component={Auth} />
+          <Route path="/creator" component={QuizCreator} />
+          <Route path="/quiz/:id" component={Quiz} />
+          <Route path="/" component={QuizList} />
+        </Switch>
       </Layout>
     )
   }
