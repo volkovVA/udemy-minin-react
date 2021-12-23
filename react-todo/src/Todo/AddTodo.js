@@ -22,7 +22,7 @@ function AddTodo({ onCreate }) {
     event.preventDefault();
 
     if (input.value().trim()) {
-      onCreate(input.value);
+      onCreate(input.value());
       input.clear();
     }
   }
