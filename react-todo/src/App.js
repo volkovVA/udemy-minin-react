@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import TodoList from "./Todo/TodoList";
-import AddTodo from "./Todo/AddTodo";
 import Context from "./context";
 import Loader from "./loader";
+
+const AddTodo = React.lazy(() => import('./Todo/AddTodo'));
 
 function App() {
 
@@ -48,7 +49,11 @@ function App() {
     <Context.Provider value={{removeTodo: removeTodo}}>
       <div className="wrapper">
         <h1>React</h1>
-        <AddTodo onCreate={addTodo}/>
+
+        <React.Suspense fallback={<p>loading...</p>}>
+          <AddTodo onCreate={addTodo}/>
+        </React.Suspense>
+
         { loading && <Loader />}
         { todos.length
           ? <TodoList todos={todos} onToggle={toggleTodo}/>
@@ -56,8 +61,6 @@ function App() {
             ? null
             : <p>No todos</p>
         }
-
-
       </div>
     </Context.Provider>
   );
